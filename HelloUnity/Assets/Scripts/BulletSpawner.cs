@@ -12,6 +12,22 @@ public class BulletSpawner : MonoBehaviour
     private float spawnRate;
     private float timerAfterSpawn;
 
+    public int hp = 100;
+    public HPBar hpbar;
+    public GameObject level;
+
+    public void GetDamage(int damage)
+    {
+        hp -= damage;
+        hpbar.SetHP(hp);
+        Debug.Log("BulletSpawner:" + hp);
+        if (hp <= 0)
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,9 +47,13 @@ public class BulletSpawner : MonoBehaviour
             GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
             bullet.transform.LookAt(target);
 
+           
+
             spawnRate = Random.Range(spawnRateMin, spawnRateMax);
                             
 
         }
     }
+
+    
 }
