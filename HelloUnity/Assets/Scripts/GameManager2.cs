@@ -14,6 +14,9 @@ public class GameManager2 : MonoBehaviour
     private float surviveTime;
     private bool isGameover;
 
+    bool isEvent = false;
+    float eventCountTime;
+
     int prevEventTime;
     
 
@@ -60,11 +63,38 @@ public class GameManager2 : MonoBehaviour
                 // 아이템들을 모두 삭제!
                 foreach(GameObject item in itemList)
                 {
+
                     Destroy(item);
                 }
                 itemList.Clear();
+
+                // 불렛 스파너들을 쫓아오게 한다.
+                foreach (GameObject spawner in spawnerList)
+                {
+                    spawner.GetComponent<BulletSpawner>().isMoving = true;
+                }
+                isEvent = true;
+                eventCountTime = 0f;
             }
             prevEventTime = eventTime;
+
+            eventCountTime += Time.deltaTime;
+
+            if (isEvent && eventCountTime > 2f)
+            {
+                eventCountTime = 0f;
+                isEvent = false;
+
+                foreach (GameObject spawner in spawnerList)
+                {
+                    spawner.GetComponent<BulletSpawner>().isMoving = false;
+                }
+            }
         }
+    }
+
+    public void DieBulletSpawner(GameObject spawner)
+    {
+        spawnerList.Remove(spawner);
     }
 }

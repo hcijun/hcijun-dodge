@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
     {
         gameObject.SetActive(false);
 
-        GameManager gameManager = FindObjectOfType<GameManager>();
-        gameManager.EndGame();
+        //GameManager2 gameManager = FindObjectOfType<GameManager2>();
+        //gameManager.EndGame();
     }
 }
